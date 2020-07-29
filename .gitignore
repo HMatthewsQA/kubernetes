@@ -1,0 +1,8 @@
+.azure/
+.bash_logout
+.bashrc
+.cache/
+.kube/
+.profile
+.ssh/
+.viminfo
