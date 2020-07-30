@@ -1,0 +1,148 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: hmatthews/practicalproj-mysql
+          ports:
+          - name: mysql-port
+            containerPort: 3306
+          env:
+          - name: MYSQL_DATABASE
+            value: "tickets_db"
+          - name: MYSQL_ROOT_PASSWORD
+            value: "root"
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app1
+  labels:
+    app: app1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app1
+  template:
+    metadata:
+      labels:
+        app: app1
+    spec:
+      containers:
+        - name: app1
+          image: hmatthews/practicalproj-app1
+          ports:
+          - name: app1-port
+            containerPort: 5000
+          env:
+          - name: SQLALCHEMY_DATABASE_URI
+            value: "mysql+pymysq;://root:root@mysql/tickets_db"
+          - name: SECRET_KEY
+            value: "ogaoganutyanbmapfifhgrsjuafafhbtjternvlofuanglogusgngpfiavna"
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app2
+  labels:
+    app: app2
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app2
+  template:
+    metadata:
+      labels:
+        app: app2
+    spec:
+      containers:
+        - name: app2
+          image: hmatthews/practicalproj-app2
+          ports:
+          - name: app2-port
+            containerPort: 5001
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app3
+  labels:
+    app: app3
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app3
+  template:
+    metadata:
+      labels:
+        app: app3
+    spec:
+      containers:
+        - name: app3
+          image: hmatthews/practicalproj-app3
+          ports:
+          - name: app3-port
+            containerPort: 5002
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app4
+  labels:
+    app: app4
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app4
+  template:
+    metadata:
+      labels:
+        app: app4
+    spec:
+      containers:
+        - name: app4
+          image: hmatthews/practicalproj-app4
+          ports:
+          - name: app4-port
+            containerPort: 5003
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: app1
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 5000
+  selector:
+    app: app1
+
+---
