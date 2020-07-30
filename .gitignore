@@ -6,3 +6,5 @@
 .profile
 .ssh/
 .viminfo
+.bash_history
+.gitconfig
