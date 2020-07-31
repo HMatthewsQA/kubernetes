@@ -27,7 +27,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: mysecret
-                key: MYSQL_ROOT_PASSWORD
+                key: mysqlrootpw
 
 ---
 
@@ -58,12 +58,12 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: mysecret
-                key: DATABASE_URI
+                key: databaseuri
           - name: SECRET_KEY
             valueFrom:
               secretKeyRef:
                 name: mysecret
-                key: SECRET_KEY
+                key: secretkey
 
 ---
 
