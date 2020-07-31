@@ -51,8 +51,8 @@ spec:
           - name: app1-port
             containerPort: 5000
           env:
-          - name: SQLALCHEMY_DATABASE_URI
-            value: "mysql+pymysq;://root:root@mysql/tickets_db"
+          - name: DATABASE_URI
+            value: "mysql+pymysql://root:root@mysql:3306/tickets_db"
           - name: SECRET_KEY
             value: "ogaoganutyanbmapfifhgrsjuafafhbtjternvlofuanglogusgngpfiavna"
 
@@ -144,5 +144,65 @@ spec:
       targetPort: 5000
   selector:
     app: app1
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: app2
+spec:
+  selector:
+    app: app2
+  ports: 
+  - protocol: TCP
+    port: 5001
+    targetPort: 5001
+  type: ClusterIP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: app3
+spec:
+  selector:
+    app: app3
+  ports:
+  - protocol: TCP
+    port: 5002
+    targetPort: 5002
+  type: ClusterIP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: app4
+spec:
+  selector:
+    app: app4
+  ports:
+  - protocol: TCP
+    port: 5003
+    targetPort: 5003
+  type: ClusterIP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+  selector:
+    app: mysql
+  ports:
+  - protocol: TCP
+    port: 3306
+    targetPort: 3306
+  type: ClusterIP
 
 ---
