@@ -20,11 +20,12 @@ spec:
           ports:
           - name: mysql-port
             containerPort: 3306
+          envFrom:
+          - secretRef:
+              name: mysecret
           env:
           - name: MYSQL_DATABASE
             value: "tickets_db"
-          - name: MYSQL_ROOT_PASSWORD
-            value: "root"
 
 ---
 
@@ -51,10 +52,11 @@ spec:
           - name: app1-port
             containerPort: 5000
           env:
-          - name: DATABASE_URI
+          - name: DATABASE_URI 
             value: "mysql+pymysql://root:root@mysql:3306/tickets_db"
-          - name: SECRET_KEY
-            value: "ogaoganutyanbmapfifhgrsjuafafhbtjternvlofuanglogusgngpfiavna"
+          envFrom:
+          - secretRef:
+              name: mysecret
 
 ---
 

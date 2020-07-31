@@ -21,3 +21,4 @@ override.tf.json
 terraform.rc
 .terraform.d/
 .wget-hsts
+mysecret.yaml
