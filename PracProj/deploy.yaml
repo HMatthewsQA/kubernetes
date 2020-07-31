@@ -20,12 +20,12 @@ spec:
           ports:
           - name: mysql-port
             containerPort: 3306
-          envFrom:
-          - secretRef:
-              name: mysecret
           env:
           - name: MYSQL_DATABASE
             value: "tickets_db"
+          From:
+          - secretRef:
+              name: mysecret
 
 ---
 
@@ -54,7 +54,7 @@ spec:
           env:
           - name: DATABASE_URI 
             value: "mysql+pymysql://root:root@mysql:3306/tickets_db"
-          envFrom:
+          From:
           - secretRef:
               name: mysecret
 
